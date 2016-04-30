@@ -1,0 +1,26 @@
+{
+    "name": "dag-io/onesky-android-flavour-sync",
+    "description": "Synchronize Android flavours translations with OneSky",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damien Gavard",
+            "email": "damien.gavard@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DAG\\OneSky\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/console": "^3.0",
+        "symfony/yaml": "^3.0",
+        "symfony/config": "^3.0",
+        "onesky/api-library-php5": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.3"
+    }
+}

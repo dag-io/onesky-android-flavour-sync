@@ -1,0 +1,4 @@
+id: 123
+strings:
+    - path: "tests/integrations/folder-of-strings-scenario/strings"
+      locale: "en_US"
