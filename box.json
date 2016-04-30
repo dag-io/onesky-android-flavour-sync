@@ -17,6 +17,6 @@
   ],
   "git-version": "package_version",
   "main": "application.php",
-  "output": "bin/post-jira-comment-with-build-details.phar",
+  "output": "bin/onesky-android-flavour-sync.phar",
   "stub": true
 }
