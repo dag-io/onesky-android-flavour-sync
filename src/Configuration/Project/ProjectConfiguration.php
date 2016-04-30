@@ -26,6 +26,7 @@ final class ProjectConfiguration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('path')->end()
                             ->scalarNode('locale')->end()
+                            ->booleanNode('is_base')->defaultFalse()->end()
                         ->end()
                     ->end()
                 ->end()

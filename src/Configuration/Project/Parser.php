@@ -55,14 +55,14 @@ final class Parser
             }
 
             if (is_file($file['path'])) {
-                $files[] = new StringFile($file['path'], $file['locale']);
+                $files[] = new StringFile($file['path'], $file['locale'], $file['is_base']);
             } elseif (is_dir($file['path'])) {
                 $filesFound = $this->globRecursive($file['path'], '*.xml');
 
                 foreach ($filesFound as $fileFound) {
                     $xml = simplexml_load_file($fileFound);
                     if (isset($xml->string)) {
-                        $files[] = new StringFile($fileFound, $file['locale']);
+                        $files[] = new StringFile($fileFound, $file['locale'], $file['is_base']);
                     }
                 }
             }

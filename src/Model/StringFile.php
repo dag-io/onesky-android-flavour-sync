@@ -12,16 +12,21 @@ final class StringFile
     /** @var string Locale (ex: en_US, ...) */
     private $locale;
 
+    /** @var boolean True if this language is the base language (Usually english) */
+    private $base;
+
     /**
      * StringFile constructor.
      *
      * @param string $path
      * @param string $locale
+     * @param boolean $base
      */
-    public function __construct($path, $locale)
+    public function __construct($path, $locale, $base)
     {
         $this->path = $path;
         $this->locale = $locale;
+        $this->base = $base;
     }
 
     /**
@@ -38,5 +43,13 @@ final class StringFile
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBase()
+    {
+        return $this->base;
     }
 }

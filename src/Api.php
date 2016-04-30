@@ -25,14 +25,24 @@ final class Api
 
     /**
      * @param Project $project
+     * @param boolean $uploadNonBase
+     * @param boolean $keepAllStrings
+     *
+     * @return int The number of files uploaded
      *
      * @throws \Exception
      */
-    public function upload(Project $project)
+    public function upload(Project $project, $uploadNonBase = false, $keepAllStrings = true)
     {
+        $fileUploaded = 0;
+
         $client = $this->getClient();
 
         foreach ($project->getStringFiles() as $stringFile) {
+            if (!$uploadNonBase && !$stringFile->isBase()) {
+                continue;
+            }
+
             $response = $client->files(
                 'upload',
                 [
@@ -40,6 +50,7 @@ final class Api
                     'file' => $stringFile->getPath(),
                     'file_format' => 'ANDROID_XML',
                     'locale' => $stringFile->getLocale(),
+                    'is_keeping_all_strings' => $keepAllStrings
                 ]
             );
             $response = json_decode($response, true);
@@ -51,7 +62,11 @@ final class Api
             if ($response['meta']['status'] != '201') {
                 throw new \Exception(sprintf('Invalid response status "%s"', $response['meta']['status']));
             }
+
+            $fileUploaded++;
         }
+
+        return $fileUploaded;
     }
 
     /**

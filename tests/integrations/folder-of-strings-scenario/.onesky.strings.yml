@@ -2,3 +2,6 @@ id: 123
 strings:
     - path: "tests/integrations/folder-of-strings-scenario/strings"
       locale: "en_US"
+      is_base: true
+    - path: "tests/integrations/folder-of-strings-scenario/strings-fr"
+      locale: "fr"

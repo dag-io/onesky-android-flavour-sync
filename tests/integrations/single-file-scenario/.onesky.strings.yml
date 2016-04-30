@@ -1,4 +1,5 @@
 id: 123
 strings:
     - path: "tests/integrations/single-file-scenario/strings.xml"
+      is_base: true
       locale: "en_US"

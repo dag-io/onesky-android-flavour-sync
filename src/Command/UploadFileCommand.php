@@ -19,7 +19,14 @@ final class UploadFileCommand extends Command
         $this
             ->setName('upload')
             ->addOption('project-file', null, InputOption::VALUE_REQUIRED, '', '.onesky.strings.yml')
-            ->addOption('secret-file', null, InputOption::VALUE_REQUIRED, '', '.onesky.secret.yml');
+            ->addOption('secret-file', null, InputOption::VALUE_REQUIRED, '', '.onesky.secret.yml')
+            ->addOption('upload-non-base', null, InputOption::VALUE_NONE, 'Upload also the non base language files')
+            ->addOption(
+                'deprecate-missing-strings',
+                null,
+                InputOption::VALUE_NONE,
+                'Deprecate strings on OneSky that are not uploaded'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -30,13 +37,17 @@ final class UploadFileCommand extends Command
         $credentialsParser = new CredentialsParser();
         $credentials = $credentialsParser->parse($input->getOption('secret-file'));
 
-        $output->writeln(sprintf('There are %d files to upload', count($project->getStringFiles())));
-
         if (count($project->getStringFiles()) > 0) {
             $api = new Api($credentials);
-            $api->upload($project);
+            $numberOfFilesUploaded = $api->upload(
+                $project,
+                (bool) $input->getOption('upload-non-base'),
+                (bool) !$input->getOption('deprecate-missing-strings')
+            );
 
-            $output->writeln('Upload finished');
+            $output->writeln(sprintf('%d files have been uploaded', $numberOfFilesUploaded));
+        } else {
+            $output->writeln('Nothing to upload');
         }
     }
 }
